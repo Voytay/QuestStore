@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>QuestStore</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+    box-sizing: border-box;
+
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+.centered { position: absolute;
+	    top: 40%;
+ 	    left: 50%;
+ 	    transform: translate(-50%, -50%); }
+header {
+    background-color: #666;
+    padding: 30px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+}
+
+nav {
+    float: left;
+    width: 30%;
+    height: 300px;
+    background: #ccc;
+    padding: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+article {
+    float: left;
+    padding: 20px;
+    width: 70%;
+    background-color: #f1f1f1;
+    height: 300px;
+}
+
+
+section:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+footer {
+    background-color: #777;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+@media (max-width: 600px) {
+    nav, article {
+        width: 100%;
+        height: auto;
+    }
+}
+</style>
+</head>
+<body>
+
+
+
+<header>
+  <img src="80110.jpg" alt="Beniz" width=1200 height=500>
+  <h2 class="centered">Questore</h2>
+<p>Welcome to the best quest store in CodeCool. Enjoy your stay and have fun.</p>
+</header>
+
+<section background="80110.jpg">
+  <nav>
+    <ul>
+      <li><a class="menu" href="#">News</a></li>
+      <li><a class="menu" href="#">Artifacts</a></li>
+      <li><a class="menu" href="#">Login</a></li>
+      <li><a class="menu" href="#">About</a></li>
+    </ul>
+  </nav>
+  
+  <article>
+    <h1>Start</h1>
+    <p>For now only news is that I need to learn all about front end and it's not that difficult but still i don't know a shit.</p>
+    <p>Still works for me.</p>
+  </article>
+</section>
+
+<footer>
+  <p>Footer</p>
+</footer>
+
+</body>
+</html>
