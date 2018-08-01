@@ -62,9 +62,16 @@ section:after {
 }
 
 footer {
+    padding: 8px;
+    margin: inherit;
     background-color: rgba(102,102,102,.55);
     text-align: center;
     color: white;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: auto;
+    width: 100%;
 }
 
 @media (max-width: 600px) {

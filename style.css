@@ -6,11 +6,10 @@ article a{
   text-decoration: none;
   color: black;
 }
-article  a:hover{
+article a:hover{
   color: white;
 }
 body {
-    /*font-family: Arial, Helvetica, sans-serif;*/
     font-family: fantasy;
     line-height: 1.7;
         background-image: url('80110.jpg');
@@ -72,9 +71,16 @@ section:after {
 }
 
 footer {
-    padding: 10px;
+    padding: 8px;
+    background-color: rgba(102,102,102,.55);
     text-align: center;
     color: white;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: auto;
+    width: 100%;
+}
 }
 
 @media (max-width: 600px) {
