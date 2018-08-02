@@ -122,3 +122,8 @@ footer {
     height: auto;
     width: 100%;
 }
+.active{
+  display: block;
+  background-color: rgba(241,241,241,.35);
+  border: 1px solid;
+}
