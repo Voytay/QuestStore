@@ -16,15 +16,16 @@
 
     <section>
       <nav>
-        <a class="menu active" href="create_mentor.htm">Create mentor</a>
+        <a class="menu" href="create_mentor.htm">Create mentor</a>
         <a class="menu" href="show_mentors.htm">Show mentors</a>
-        <a class="menu" href="edit_mentor.htm">Edit mentor</a>
+        <a class="menu active" href="edit_mentor.htm">Edit mentor</a>
         <a class="menu" href="manage_class.htm">Manage class</a>
       </nav>
-
+      <!--Checking checkbox define if user want to edit field
+    Default fields are loaded from back-end -->
       <div class="content">
         <div class="data">
-          <h1>Creating mentor</h1>
+          <h1>Edit mentor</h1>
           <form name="create_mentor" method="POST">
             <div class="row">
               <div class="col-25">
@@ -32,6 +33,7 @@
               </div>
               <div class="col-75">
                 <input type="text" id="username" name="username" placeholder="Enter username">
+                <input type="checkbox" name="username_edit">
               </div>
             </div>
             <div class="row">
@@ -40,6 +42,7 @@
               </div>
               <div class="col-75">
                 <input type="text" id="first_name" name="fname" placeholder="Enter first name">
+                <input type="checkbox" name="fname_edit">
               </div>
             </div>
             <div class="row">
@@ -48,6 +51,7 @@
               </div>
               <div class="col-75">
                 <input type="text" id="last_name" name="lname" placeholder="Enter last name">
+                <input type="checkbox" name="lname_edit">
               </div>
             </div>
             <div class="row">
@@ -56,6 +60,7 @@
               </div>
               <div class="col-75">
                 <input type="email" id="email" name="email" placeholder="Enter email">
+                <input type="checkbox" name="email_edit">
               </div>
             </div>
             <div class="row">
@@ -64,10 +69,11 @@
               </div>
               <div class="col-75">
                 <input type="text" id="phone_number" name="phone" placeholder="Enter phone number">
+                <input type="checkbox" name="phone_edit">
               </div>
             </div>
 
-            <input type="submit" value="Create mentor"><br>
+            <input type="submit" value="Save"><br>
           </form>
         </div>
       </div>

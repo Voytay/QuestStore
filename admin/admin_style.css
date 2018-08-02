@@ -55,13 +55,16 @@ footer {
   height: auto;
   width: 100%;
 }
+input[type=text]{
+  border-radius: 4px;
+}
+input[type=email]{
+  border-radius: 4px;
+}
 .menu {
   justify-content: space-around;
 }
 .data {
-  display: flex;
-  text-align: center;
-  align-items: center;
   padding: 5%;
   background-color: rgba(241,241,241,.65);
 
@@ -73,4 +76,20 @@ footer {
   display: block;
   background-color: rgba(241,241,241,.35);
   border: 1px solid;
+}
+.col-25{
+  float: left;
+  width: 25%;
+}
+.col-75{
+  float: left;
+  width: 75%;
+}
+.row:after{
+  content: "";
+  display: table;
+  clear: both;
+}
+#create_mentor{
+border: solid black 1px;
 }
