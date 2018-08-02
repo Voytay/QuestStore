@@ -29,7 +29,7 @@ header {
 
 nav {
     float: left;
-    flex: 30%
+    flex: 30%;
     margin: auto;
     background: rgba(204,204,204,.55);
     padding: 0px;
