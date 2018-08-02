@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <title>QuestStore</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="admin_style.css">
+</head>
+
+<body>
+  <div id="container">
+    <header>
+      <p>Welcome, &lt;&lt;username&gt;&gt;</p>
+    </header>
+
+    <section>
+      <nav>
+        <a class="menu active" href="create_mentor.htm">Create mentor</a>
+        <a class="menu" href="show_mentors.htm">Show mentors</a>
+        <a class="menu" href="edit_mentor.htm">Edit mentor</a>
+        <a class="menu" href="manage_class.htm">Manage class</a>
+      </nav>
+
+      <div class="content">
+        <div class="data">
+          <form name="create_mentor" method="POST">
+            Username:<br>
+            <input type="text" name="username"><br> First name:<br>
+            <input type="text" name="first_name"><br> Last name:<br>
+            <input type="text" name="last_name"><br> Email:
+            <br>
+            <input type="email" name="email"><br> Phone number:<br>
+            <input type="text" name="phone"><br>
+            <input type="submit" value="Create mentor"><br>
+          </form>
+        </div>
+      </div>
+
+    </section>
+
+    <footer>
+      <small>&copy; Copyright 2018</small>
+    </footer>
+  </div>
+</body>
+
+</html>
