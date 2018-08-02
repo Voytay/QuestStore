@@ -18,7 +18,9 @@ body {
   position: absolute;
 	    top: 40%;
  	    left: 50%;
- 	    transform: translate(-50%, -50%); }
+ 	    transform: translate(-50%, -50%);
+ }
+
 header {
     background-color: rgba(102,102,102,.55);
     padding: 20px;
@@ -39,6 +41,7 @@ nav {
 
 .content {
     flex: 70%;
+    font-family: 'Gloria Hallelujah', cursive;
 }
 
 nav a{
@@ -55,14 +58,15 @@ nav a:hover{
         justify-content: space-around;
 }
 
-.artifacts {
-    font-family: 'Gloria Hallelujah', cursive;
+.items {
     display: flex;
     text-align: center;
     align-items: center;
     padding: 5%;
     background-color: rgba(241,241,241,.65);
 }
+
+
 .image {
 
 display: inline-block;
