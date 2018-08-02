@@ -11,6 +11,8 @@ body {
     /*font-family: Arial, Helvetica, sans-serif;*/
     font-family: fantasy;
     line-height: 1.7;
+    background-image: url('80110.jpg');
+    background-size: cover;
 }
 .centered {
   position: absolute;
@@ -27,11 +29,16 @@ header {
 
 nav {
     float: left;
-    width: 15%;
+    flex: 30%
+    margin: auto;
     height: 300px;
     background: rgba(204,204,204,.55);
     padding: 0px;
     font-size: 18px;
+}
+
+.content {
+    flex: 70%;
 }
 
 nav a{
@@ -44,19 +51,23 @@ nav a:hover{
   background-color:rgba(241,241,241,.35);
 }
 
+.menu {
+        justify-content: space-around;
+}
+
 .artifacts {
     font-family: 'Gloria Hallelujah', cursive;
     display: flex;
     text-align: center;
+    align-items: center;
     padding: 5%;
-    width: 85%;
     background-color: rgba(241,241,241,.65);
 }
 .image {
 
 display: inline-block;
-  width: 100%;
   height: auto;
+  width: 100%;
 }
 .artifact {
 float: left;
@@ -64,7 +75,7 @@ float: left;
    margin-left: 0px;
    margin-right: 5%
    width: 25%;
-   max-width: 300px;
+   max-width: 180px;
  }
 
  .overlay {
@@ -77,7 +88,7 @@ float: left;
    transition: .5s ease;
    opacity:0;
    color: white;
-   font-size: 20px;
+   font-size: 16px;
    padding: 20px;
    text-align: center;
  }
@@ -99,12 +110,22 @@ float: left;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    cursor: pointer;
+}
+
+.buy:hover {box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); background-color:  #b3b3b3;}
+
+.buy:active {
+  background-color: #bfbfbf;
+  transform: translateY(4px);
 }
 
 section{
+    display: flex;
   width: 100%;
   height: 100%;
-  margin: auto;
+
+
 }
 section:after {
     content: "";
@@ -113,18 +134,26 @@ section:after {
 }
 
 footer {
+    position: fixed;
     padding: 8px;
     margin: inherit;
     background-color: rgba(102,102,102,.55);
     text-align: center;
     color: white;
-    position: absolute;
     left: 0;
     bottom: 0;
     height: auto;
     width: 100%;
 }
-.active{
+
+@media (max-width: 600px) {
+    nav, article {
+        width: 100%;
+        height: auto;
+    }
+}
+
+#active{
   display: block;
   background-color: rgba(241,241,241,.35);
   border: 1px solid;
