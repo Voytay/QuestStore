@@ -2,13 +2,11 @@
     box-sizing: border-box;
     margin: 0 auto;
     padding: 0;
-    border: 0;
     font-size: 100%;
     vertical-align: baseline;
 }
 
 body {
-    /*font-family: Arial, Helvetica, sans-serif;*/
     font-family: fantasy;
     line-height: 1.7;
     background-image: url('80110.jpg');
@@ -177,4 +175,29 @@ footer {
   display: block;
   background-color: rgba(241,241,241,.35);
   border: 1px solid;
+}
+
+#students_list {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    background-color: rgba(241,241,241,.85);
+    width: 80%;
+    float: left;
+}
+
+#students_list td, #students_list th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#students_list tr:nth-child(even){
+  background-color: rgba(241,241,241,.65);
+}
+
+#students_list th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: rgba(38,129,84,.65);
+    color: white;
 }
