@@ -5,6 +5,7 @@
     font-size: 100%;
     vertical-align: baseline;
     background: cover;
+    background-repeat: no-repeat;
 }
 
 body {
@@ -12,6 +13,7 @@ body {
     line-height: 1.7;
     background-image: url('80110.jpg');
     background-size: cover;
+    object-fit: cover;
 }
 .centered {
   position: absolute;
@@ -39,6 +41,8 @@ nav {
 .content {
     flex: 70%;
     background-color: rgba(241,241,241,.65);
+    flex-flow: nowrap column;
+
 }
 
 nav a{
@@ -163,7 +167,8 @@ footer {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     background-color: rgba(241,241,241,.85);
-    width: 80%;
+    width: 100%;
+    max-height: 80%;
     float: left;
 }
 
@@ -204,4 +209,52 @@ footer {
 
 .button:hover {
   background-color: grey;
+}
+
+.student_data {
+  float:left;
+  margin-left: 30px;
+  height: 300px;
+  width: 300px;
+
+}
+.student_avatar{
+  float:right;
+  margin-right: 30px;
+  width: 20%;
+  height: 20%;
+}
+  #table_setings {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      background-color: rgba(241,241,241,.85);
+      height: 20%;
+      min-width: 400px;
+      float: bottom;
+      margin-bottom: 12%;
+
+  }
+
+  #table_setings td, #table_setings th {
+      border: 1px solid #ddd;
+      padding: 8px;
+  }
+
+  #table_setings tr:nth-child(even){
+    background-color: rgba(241,241,241,.65);
+  }
+
+  #table_setings th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: rgba(38,129,84,.65);
+      color: white;
+  }
+.table {
+  display: flex;
+  width: 100%
+}
+.top_content{
+  display: flex;
 }
