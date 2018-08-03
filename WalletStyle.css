@@ -1,0 +1,82 @@
+* {
+    box-sizing: border-box;
+    }
+body {
+    background-image: url("../WallStreet.jpg");
+    background-size: cover;
+    }
+header {text-align: center;
+        font-size: 70px;
+        }
+nav {
+     float: left;
+     width: 15%;
+     height: 400px;
+     background-color: Black;
+     opacity: 0.7;
+     border-radius: 25px;
+     }
+nav a {
+     display: block;
+     padding: 15px;
+     height: 17%;
+     text-decoration: none;
+     color: white;
+     border-radius: 25px;
+}
+nav a:hover {
+     background-color: FireBrick;
+}
+.active {background-color: FireBrick;}
+article {
+     float: left;
+     width: 85%;
+     height: 400px;
+     background-color: white;
+     opacity: 0.7;
+     border-radius: 25px;
+}
+#coins {padding: 10px;
+        background-color: Silver;
+        border: 2px solid Crimson;
+        width: 30%;
+        margin-left: 15px;
+        border-radius: 25px;
+}
+#history {margin-left: 15px;
+          padding: 10px;
+          background-color: Crimson;
+          border-radius: 25px;}
+#artifacts {margin-left: 15px;
+          padding: 10px;
+          background-color: Crimson;
+          border-radius: 25px;}
+#quests {margin-left: 15px;
+          padding: 10px;
+          background-color: Crimson;
+          border-radius: 25px;}
+table {margin: 15px;
+       border-collapse: collapse;}
+table th {
+        padding: 10px;
+        text-align: center;
+        border: 2px solid Crimson;
+        background-color: Silver;
+        }
+@media (max-width: 600px) {
+    nav, article {
+        width: 100%;
+        height: auto;
+    }
+footer {
+    position: fixed;
+    padding: 8px;
+    margin: inherit;
+    background-color: rgba(102,102,102,.55);
+    text-align: center;
+    color: white;
+    left: 0;
+    bottom: 0;
+    height: auto;
+    width: 100%;
+}
