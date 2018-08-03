@@ -19,7 +19,9 @@ body {
   position: absolute;
 	    top: 40%;
  	    left: 50%;
- 	    transform: translate(-50%, -50%); }
+ 	    transform: translate(-50%, -50%);
+ }
+
 header {
     background-color: rgba(102,102,102,.55);
     padding: 20px;
@@ -31,7 +33,6 @@ header {
 nav {
     float: left;
     flex: 30%;
-    margin: auto;
     background: rgba(204,204,204,.55);
     padding: 0px;
     font-size: 18px;
@@ -40,9 +41,13 @@ nav {
 
 .content {
     flex: 70%;
+<<<<<<< HEAD
     background-color: rgba(241,241,241,.65);
     flex-flow: nowrap column;
 
+=======
+    font-family: 'Gloria Hallelujah', cursive;
+>>>>>>> b207c4ebb1b49cabd865a130479c9708488d85dd
 }
 
 nav a{
@@ -60,14 +65,15 @@ nav a:hover{
         justify-content: space-around;
 }
 
-.artifacts {
-    font-family: 'Gloria Hallelujah', cursive;
+.items {
     display: flex;
     text-align: center;
     align-items: center;
     padding: 5%;
     background-color: rgba(241,241,241,.65);
 }
+
+
 .image {
 
 display: inline-block;
@@ -75,13 +81,27 @@ display: inline-block;
   width: 100%;
 }
 .artifact {
-float: left;
+    display: inline-block;
+    float: left;
    position:relative;
    margin-left: 0px;
-   margin-right: 5%
+   margin-right: 5%;
    width: 25%;
    max-width: 180px;
  }
+  p {
+     max-width: 40%;
+  }
+
+  .quest {
+        display: inline-block;
+        float: left;
+       position:relative;
+       margin-left: 0px;
+       margin-right: 5%;
+   width: 25%;
+   max-width: 230px;
+    }
 
  .overlay {
    position: absolute;
@@ -102,6 +122,9 @@ float: left;
  .artifact:hover .overlay {
    opacity: 1;
  }
+    .quest:hover .overlay {
+     opacity: 1;
+    }
 
 
 .buy {
