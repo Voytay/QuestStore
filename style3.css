@@ -32,7 +32,6 @@ header {
 nav {
     float: left;
     flex: 30%;
-    margin: auto;
     background: rgba(204,204,204,.55);
     padding: 0px;
     font-size: 18px;
@@ -74,13 +73,27 @@ display: inline-block;
   width: 100%;
 }
 .artifact {
-float: left;
+    display: inline-block;
+    float: left;
    position:relative;
    margin-left: 0px;
-   margin-right: 5%
+   margin-right: 5%;
    width: 25%;
    max-width: 180px;
  }
+  p {
+     max-width: 40%;
+  }
+
+  .quest {
+        display: inline-block;
+        float: left;
+       position:relative;
+       margin-left: 0px;
+       margin-right: 5%;
+   width: 25%;
+   max-width: 230px;
+    }
 
  .overlay {
    position: absolute;
@@ -101,6 +114,9 @@ float: left;
  .artifact:hover .overlay {
    opacity: 1;
  }
+    .quest:hover .overlay {
+     opacity: 1;
+    }
 
 
 .buy {
