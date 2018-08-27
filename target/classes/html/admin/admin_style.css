@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+  margin: 0px auto;
+  padding: 0px;
+
+  vertical-align: baseline;
+}
+body {
+  font-family: fantasy;
+  line-height: 1.7;
+  background-image: url('../80110.jpg');
+  background-size: cover;
+}
+
+header {
+  background-color: rgba(102,102,102,.55);
+  padding: 20px;
+  text-align: center;
+  font-size: 28px;
+  color: white;
+}
+
+nav {
+  float: left;
+  flex: 20%;
+  background: rgba(204,204,204,.55);
+  font-size: 18px;
+}
+nav a {
+  display: block;
+  text-decoration: none;
+  color: black;
+}
+nav a:hover{
+  color: white;
+  background-color:rgba(241,241,241,.35);
+}
+section {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+section:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+footer {
+  position: fixed;
+  padding: 8px;
+  margin: inherit;
+  background-color: rgba(102,102,102,.55);
+  text-align: center;
+  color: white;
+  height: auto;
+  width: 100%;
+}
+input[type=text]{
+  border-radius: 4px;
+}
+input[type=email]{
+  border-radius: 4px;
+}
+.menu {
+  justify-content: space-around;
+}
+.data {
+  padding: 5%;
+  background-color: rgba(241,241,241,.65);
+
+}
+.content {
+  flex: 80%;
+}
+.active{
+  display: block;
+  background-color: rgba(241,241,241,.35);
+  border: 1px solid;
+}
+.col-25{
+  float: left;
+  width: 25%;
+}
+.col-75{
+  float: left;
+  width: 75%;
+}
+.row:after{
+  content: "";
+  display: table;
+  clear: both;
+}
+#create_mentor{
+border: solid black 1px;
+}

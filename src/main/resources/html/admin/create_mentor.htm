@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <title>QuestStore</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="admin_style.css">
+</head>
+
+<body>
+  <div id="container">
+    <header>
+      <p>Welcome, &lt;&lt;username&gt;&gt;</p>
+    </header>
+
+    <section>
+      <nav>
+        <a class="menu active" href="create_mentor.htm">Create mentor</a>
+        <a class="menu" href="show_mentors.htm">Show mentors</a>
+        <a class="menu" href="edit_mentor.htm">Edit mentor</a>
+        <a class="menu" href="manage_class.htm">Manage class</a>
+      </nav>
+
+      <div class="content">
+        <div class="data">
+          <h1>Creating mentor</h1>
+          <form name="create_mentor" method="POST">
+            <div class="row">
+              <div class="col-25">
+                <label for="username">Username</label>
+              </div>
+              <div class="col-75">
+                <input type="text" id="username" name="username" placeholder="Enter username">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="first_name">First name</label>
+              </div>
+              <div class="col-75">
+                <input type="text" id="first_name" name="fname" placeholder="Enter first name">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="last_name">Last name</label>
+              </div>
+              <div class="col-75">
+                <input type="text" id="last_name" name="lname" placeholder="Enter last name">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="email">Email</label>
+              </div>
+              <div class="col-75">
+                <input type="email" id="email" name="email" placeholder="Enter email">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="phone_number">Phone number</label>
+              </div>
+              <div class="col-75">
+                <input type="text" id="phone_number" name="phone" placeholder="Enter phone number">
+              </div>
+            </div>
+
+            <input type="submit" value="Create mentor" onclick="createMentor()"><br>
+            <script>
+              function createMentor() {
+                window.alert('Mentor created!');
+              }
+            </script>
+          </form>
+        </div>
+      </div>
+
+    </section>
+
+    <footer>
+      <small>&copy; Copyright 2018 <small>by ToRybyŁyzłe</small></small>
+    </footer>
+  </div>
+</body>
+
+</html>
