@@ -5,10 +5,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 
-public class sessionDAO extends Connectable {
+public class SessionDAO extends Connectable {
 
     public void createSession(String id, int userID){
-    Connection con = getConnection();
+        Connection con = getConnection();
         try {
             Statement statement = con.createStatement();
             statement.execute("INSERT INTO session (session_id, expirationdate, user_id)\n" +
