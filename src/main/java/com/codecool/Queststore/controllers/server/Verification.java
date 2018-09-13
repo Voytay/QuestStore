@@ -1,4 +1,4 @@
-package com.codecool.Queststore.controllers;
+package com.codecool.Queststore.controllers.server;
 
 public class Verification {
 
