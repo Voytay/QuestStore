@@ -43,16 +43,16 @@ public class AdminServices {
         return null;
     }
 
-    public String getManageClassPage(User user) {
-        if (user.getROLE() == ADMIN) {
-            ClassDAO classDao = new ClassDAO();
-            ArrayList<Class> classes = classDao.getClasses();
-            JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/manageClass.twig");
-            JtwigModel model = JtwigModel.newModel().with("name", user.getNAME());
-            model.with("classes", classes);
-            String response = template.render(model);
-            return response;
-        }
-        return null;
-    }
+//    public String getManageClassPage(User user) {
+//        if (user.getROLE() == ADMIN) {
+//            ClassDAO classDao = new ClassDAO();
+//            ArrayList<Class> classes = classDao.getClasses();
+//            JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/manageClass.twig");
+//            JtwigModel model = JtwigModel.newModel().with("name", user.getNAME());
+//            model.with("classes", classes);
+//            String response = template.render(model);
+//            return response;
+//        }
+//        return null;
+//    }
 }
