@@ -7,13 +7,13 @@ import java.time.LocalDate;
 
 public class sessionDAO extends Connectable {
 
-    public void createSession(String id, LocalDate date, int UserID){
+    public void createSession(String id, int userID){
     Connection con = getConnection();
         try {
             Statement statement = con.createStatement();
             statement.execute("INSERT INTO session (session_id, expirationdate, user_id)\n" +
-                    "VALUES (id, date, UserID);" +
-                    "session_id = " + id + ";");
+                    "VALUES (" + id + ", " + userID + ");");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
