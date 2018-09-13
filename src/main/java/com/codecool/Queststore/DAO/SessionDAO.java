@@ -11,7 +11,7 @@ public class SessionDAO extends Connectable {
         try {
             Statement statement = con.createStatement();
             statement.execute("INSERT INTO session (session_id, expirationdate, user_id)\n" +
-                    "VALUES (" + id + ", " + userID + ");");
+                    "VALUES ('" + id + "', '" + userID + "');");
 
         } catch (SQLException e) {
             e.printStackTrace();
