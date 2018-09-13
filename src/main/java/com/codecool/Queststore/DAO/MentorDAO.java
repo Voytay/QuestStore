@@ -1,7 +1,6 @@
 package com.codecool.Queststore.DAO;
 
 import com.codecool.Queststore.services.User;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
