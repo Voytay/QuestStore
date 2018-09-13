@@ -15,7 +15,6 @@ public class LoginPageHandler implements HttpHandler {
         httpExchange.sendResponseHeaders(200, response.length());
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());
-
         os.close();
 
     }

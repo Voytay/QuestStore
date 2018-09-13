@@ -1,9 +1,11 @@
 package com.codecool.Queststore.services;
 
+import com.codecool.Queststore.DAO.MentorDAO;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdminServices {
     private final int ADMIN = 1;
@@ -20,8 +22,8 @@ public class AdminServices {
 
     public String getShowMentPage(User user) {
         if(user.getROLE() == ADMIN) {
-            MentorDao menDao = new MentorDao();
-            ArrayList<User> mentors = menDao.getMentors();
+            MentorDAO menDao = new MentorDAO();
+            List<User> mentors = menDao.getMentors();
             JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/showMentors.twig");
             JtwigModel model = JtwigModel.newModel().with("name", user.getNAME());
             model.with("mentors", mentors);
@@ -43,7 +45,7 @@ public class AdminServices {
 
     public String getManageClassPage(User user) {
         if (user.getROLE() == ADMIN) {
-            ClassDao classDao = new ClassDao();
+            ClassDAO classDao = new ClassDAO();
             ArrayList<Class> classes = classDao.getClasses();
             JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/manageClass.twig");
             JtwigModel model = JtwigModel.newModel().with("name", user.getNAME());
