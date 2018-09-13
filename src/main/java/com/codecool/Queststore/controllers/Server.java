@@ -8,7 +8,7 @@ public class Server {
     public void run() {
         try
         {
-            HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+            HttpServer server = HttpServer.create(new InetSocketAddress(5777), 0);
             server.createContext("/log", new LoginPageHandler());
             server.setExecutor(null);
             server.start();
