@@ -1,6 +1,7 @@
 package com.codecool.Queststore.DAO;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -14,9 +15,17 @@ public class MentorDAO extends Connectable {
             statement.execute("INSERT INTO person VALUES ('" + username +
                     "', '" + passwd_hash + "', '" + salt + "', '" + name + "', '" +
                     last_name + "', '" + role + "', '" + email + "', '" + phone +"')");
+            statement.execute("SELECT id_person FROM person WHERE email ='" + email + "';");
+            ResultSet resultSet = statement.getResultSet();
+
+            if(resultSet.next()) {
+                String personId = resultSet.getString("id_person");
+                statement.execute("INSERT INTO mentor VALUES ('" + personId + "';");
+            }
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
     }
