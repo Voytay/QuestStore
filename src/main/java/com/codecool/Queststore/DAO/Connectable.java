@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class Connectable {
-    public Connection getConnection(){
+    public Connection getConnection() {
         Connection con = null;
         try {
-            con = (Connection) DriverManager.getConnection("jdbc:postgresql://localhost:5777/queststore",
-                    "postgres", "password");
+            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/queststore",
+                    "postgres", "123");
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println(e.getClass().getName() + ": " + e.getMessage());

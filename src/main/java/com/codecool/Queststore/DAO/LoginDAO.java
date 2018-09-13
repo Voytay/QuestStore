@@ -7,49 +7,49 @@ import java.sql.Statement;
 
 
 public class LoginDAO extends Connectable {
-    public String verification(String id) throws SQLException {
-        String userID;
+    public boolean verification(String id) {
         Connection con = getConnection();
         try {
             Statement statement = con.createStatement();
-            statement.execute("SELECT id FROM session WHERE " +
-                    "session_id = " + id + ";");
+            statement.execute("SELECT session_id FROM session WHERE " +
+                    "session_id = '" + id + "';");
             ResultSet resultSet = statement.getResultSet();
             if (resultSet.next()) {
-                userID = resultSet.getString("id");
-                return userID;
+                if (resultSet.getString("session_id").equals(id)) return true;
+
             }
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException();
         }
-        con.close();
-        return null;
+
+        return false;
     }
-    public int getRoleBySession(String session_id) throws SQLException {
-        String userID;
-        int personRole;
+
+    public int getRoleBySession(String session_id) {
         Connection con = getConnection();
         try {
             Statement statement = con.createStatement();
             statement.execute("SELECT user_id FROM session WHERE " +
-                    "session_id = " + session_id + ";");
+                    "session_id = '" + session_id + "';"); //                   USER ID
             ResultSet resultSet = statement.getResultSet();
             if (resultSet.next()) {
-                userID = resultSet.getString("user_id");
+                String userID = resultSet.getString("user_id");
+
+
                 statement.execute("SELECT role FROM person WHERE " +
-                        "user_id = " + userID + ";");
-                        resultSet = statement.getResultSet();
+                        "id_person = '" + userID + "';");  //               ROLE
+                resultSet = statement.getResultSet();
                 if (resultSet.next()) {
-                    personRole = resultSet.getInt("session_id");
-                    return personRole;
+                    return resultSet.getInt("role");
+
                 }
             }
+            con.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException();
         }
-        con.close();
         System.out.println("No such session or person");
         return 0;
     }
