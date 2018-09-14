@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <title>QuestStore</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../styles/admin_style.css">
+</head>
+
+<body>
+  <div id="container">
+    <header>
+      <p>Welcome, {{ name }}</p>
+    </header>
+
+    <section>
+      <nav>
+        <a class="menu" href="create_mentor.twig">Create mentor</a>
+        <a class="menu active" href="show_mentors.twig">Show mentors</a>
+        <a class="menu" href="edit_mentor.twig">Edit mentor</a>
+        <a class="menu" href="manage_class.twig">Manage class</a>
+        <a class="menu" href="index.twig">Log out</a>
+      </nav>
+
+      <div class="content">
+        <div class="data">
+          <h1>Mentors</h1>
+          <table id="mentors_table"style="width:100%">
+            <tr>
+              <th>Id</th>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Email</th>
+              <th>Phone</th>
+            </tr>
+            {% for mentor in mentors %}
+            <tr>
+              <td>{{ mentor.getID() }}</td>
+              <td>{{ mentor.getNAME() }}</td>
+              <td>{{ mentor.getLAST_NAME() }}</td>
+              <td>{{ mentor.getEMAIL() }}</td>
+              <td>{{ mentor.getPHONE() }}</td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <footer>
+      <small>&copy; Copyright 2018</small>
+    </footer>
+  </div>
+</body>
+
+</html>

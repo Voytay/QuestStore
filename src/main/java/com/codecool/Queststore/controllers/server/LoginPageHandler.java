@@ -21,7 +21,7 @@ public class LoginPageHandler extends AbstractHandler implements HttpHandler {
 
     public void handle(HttpExchange httpExchange) throws IOException {
         String method = httpExchange.getRequestMethod();
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/index.twig.html");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/index.twig");
         JtwigModel model = JtwigModel.newModel().with("username", "Dupa");
         String response = template.render(model);
         if(method.equals("GET")){
@@ -39,14 +39,14 @@ public class LoginPageHandler extends AbstractHandler implements HttpHandler {
             Map data = parseFormData(formData);
             data.forEach((k,v) ->
                     System.out.println(k + "       " + v));
-            if (checkData(data)) {
+            if (!checkData(data)) {
                 PersonDAO dao = new PersonDAO();
                 HttpCookie cookie = createCookie();
                 httpExchange.getResponseHeaders().add("Set-Cookie", cookie.toString());
                 String username = (String) data.get("username");
                 switch (dao.getRoleByUsername(username)) {
 
-                    case 1:
+                    case 0:
                         template = JtwigTemplate.classpathTemplate("templates/admin.twig.html");
                         model = JtwigModel.newModel().with("username", data.get("username"));
                         response = template.render(model);

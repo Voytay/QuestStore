@@ -12,7 +12,7 @@ article a:hover{
 body {
     font-family: fantasy;
     line-height: 1.7;
-        background-image: url('80110.jpg');
+        background-image: url('../html/80110.jpg');
         background-size: cover;
 }
 .centered {
