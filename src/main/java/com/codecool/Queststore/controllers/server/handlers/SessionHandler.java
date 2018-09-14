@@ -1,7 +1,11 @@
 package com.codecool.Queststore.controllers.server.handlers;
 
+import com.codecool.Queststore.DAO.MentorDAO;
 import com.codecool.Queststore.controllers.server.AbstractHandler;
 import com.codecool.Queststore.dao.LoginDAO;
+import com.codecool.Queststore.dao.PersonDAO;
+import com.codecool.Queststore.services.LoginServices;
+import com.codecool.Queststore.services.User;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -17,24 +21,24 @@ public class SessionHandler extends AbstractHandler implements HttpHandler {
         String response = "";
 
         List<String> cookies = httpExchange.getRequestHeaders().get("Cookie");
-        boolean isLogged = false;
+        boolean isLogged = true;
         String sessionId;
-        if (cookies != null) {
-            sessionId = parseCookie(cookies);
-            System.out.println(checkSession(sessionId));
-
-            if (checkSession(sessionId)) isLogged = true;
-            if (isLogged) {
-                response = "You are logged in!";
-                if (checkRole(sessionId) == 1) {
-                    response += "</br> You are admin!";
-                    response += "your sessionId is:";
-                    response += sessionId;
-                } else response += "<br> You are not admin!";
-                AbstractHandler.sendResponse(response, httpExchange);
-
-            }
-        } else {
+//        if (cookies != null) {
+//            sessionId = parseCookie(cookies);
+//            System.out.println(checkSession(sessionId));
+//
+//            if (checkSession(sessionId)) isLogged = true;
+//            if (isLogged) {
+//                response = "You are logged in!";
+//                if (checkRole(sessionId) == 1) {
+//                    response += "</br> You are admin!";
+//                    response += "your sessionId is:";
+//                    response += sessionId;
+//                } else response += "<br> You are not admin!";
+//                AbstractHandler.sendResponse(response, httpExchange);
+//
+//            }
+//        } else {
 
             JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/index.twig.html");
             JtwigModel model = JtwigModel.newModel().with("username", "Dupa");
@@ -42,7 +46,7 @@ public class SessionHandler extends AbstractHandler implements HttpHandler {
             AbstractHandler.sendRedirectResponse(response, httpExchange);
 
         }
-    }
+ //   }
 
     public String parseCookie(List<String> cookies) {
         String[] pair;

@@ -8,7 +8,7 @@ public class Connectable {
         Connection con = null;
         try {
             con = (Connection) DriverManager.getConnection("jdbc:postgresql://localhost:5432/queststore",
-                    "postgres", "yakuza06");
+                    "postgres", "123");
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
