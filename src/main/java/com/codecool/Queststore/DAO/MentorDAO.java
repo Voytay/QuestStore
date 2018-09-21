@@ -32,7 +32,7 @@ public class MentorDAO extends DAO {
         String email;
         int role;
         List<User> mentorList = new ArrayList<User>();
-        ResultSet resultSet = executeQuery("SELECT * FROM person WHERE role = '2';")
+        ResultSet resultSet = executeQuery("SELECT * FROM person WHERE role = '2';");
         if (resultSet.next()) {
             id = resultSet.getInt("id_person");
             name= resultSet.getString("name");
