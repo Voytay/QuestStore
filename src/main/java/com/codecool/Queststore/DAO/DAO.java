@@ -1,9 +1,8 @@
 package com.codecool.Queststore.DAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.*;
 
-public class Connectable {
+public abstract class  DAO {
     public Connection getConnection() {
         Connection con = null;
         try {
@@ -16,6 +15,17 @@ public class Connectable {
             System.out.println("Opened database successfully");
         }
         return con;
+    }
+    public ResultSet executeQuery(String query) throws SQLException {
+        Connection con = getConnection();
+        Statement statement = con.createStatement();
+        statement.execute(query);
+        con.close();
+        return statement.getResultSet();
+    }
+
+    public void insertQuery(PreparedStatement statement){
+
     }
 
 }

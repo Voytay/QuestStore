@@ -1,34 +1,28 @@
 package com.codecool.Queststore.DAO;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class MentorDAO extends Connectable {
+
+public class MentorDAO extends DAO {
 
     public void createMentor(String username, String passwd_hash, String salt, String name,
-                             String last_name, int role, String email, String phone) {
-        Connection con = getConnection();
-        try {
-            Statement statement = con.createStatement();
-            statement.execute("INSERT INTO person VALUES ('" + username +
-                    "', '" + passwd_hash + "', '" + salt + "', '" + name + "', '" +
-                    last_name + "', '" + role + "', '" + email + "', '" + phone + "')");
-            statement.execute("SELECT id_person FROM person WHERE email ='" + email + "';");
-            ResultSet resultSet = statement.getResultSet();
-            if (resultSet.next()) {
-                String personId = resultSet.getString("id_person");
-                statement.execute("INSERT INTO mentor VALUES ('" + personId + "';");
-            }
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+                             String last_name, int role, String email, String phone) throws SQLException {
+
+        String insertMentorToPersonQuery = ("\"INSERT INTO person VALUES ('\" + username +\n" +
+                "                \"', '\" + passwd_hash + \"', '\" + salt + \"', '\" + name + \"', '\" +\n" +
+                "                last_name + \"', '\" + role + \"', '\" + email + \"', '\" + phone + \"')\"");
+        String getMentorIdQuery = ("SELECT id_person FROM person WHERE email ='\" + email + \"';");
+        executeQuery(insertMentorToPersonQuery);
+        ResultSet mentorIdSet = executeQuery(getMentorIdQuery);
+        if (mentorIdSet.next()) {
+            String personId = mentorIdSet.getString("id_person");
+            String insertMentorToMentorsQuery = ("INSERT INTO mentor VALUES ('" + personId + "';");
+            executeQuery(insertMentorToMentorsQuery);
         }
     }
 
-    public List<User> getMentors() {
-        Connection con = getConnection();
+    public List<User> getMentors() throws SQLException {
         int id;
         String name;
         String lastName;
@@ -38,27 +32,19 @@ public class MentorDAO extends Connectable {
         String email;
         int role;
         List<User> mentorList = new ArrayList<User>();
-        try {
-            Statement statement = con.createStatement();
-            statement.execute("SELECT * FROM person WHERE role = '2';");
-            ResultSet resultSet = statement.getResultSet();
-            if (resultSet.next()) {
-                id = resultSet.getInt("id_person");
-                name= resultSet.getString("name");
-                lastName= resultSet.getString("last_name");
-                username = resultSet.getString("username");
-                pass = resultSet.getString("passwd_hash");
-                phone = resultSet.getString("phone");
-                email = resultSet.getString("email");
-                role = resultSet.getInt("role");
-                User mentor = new User(id,name,lastName,username,pass,phone,email,role);
-                mentorList.add(mentor);
+        ResultSet resultSet = executeQuery("SELECT * FROM person WHERE role = '2';")
+        if (resultSet.next()) {
+            id = resultSet.getInt("id_person");
+            name= resultSet.getString("name");
+            lastName= resultSet.getString("last_name");
+            username = resultSet.getString("username");
+            pass = resultSet.getString("passwd_hash");
+            phone = resultSet.getString("phone");
+            email = resultSet.getString("email");
+            role = resultSet.getInt("role");
+            User mentor = new User(id,name,lastName,username,pass,phone,email,role);
+            mentorList.add(mentor);
             }
-            con.close();
             return mentorList;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

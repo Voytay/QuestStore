@@ -1,21 +1,15 @@
 package com.codecool.Queststore.DAO;
 
-import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class SessionDAO extends Connectable {
 
-    public void createSession(String id, int userID) {
-        Connection con = getConnection();
-        try {
-            Statement statement = con.createStatement();
-            statement.execute("INSERT INTO session (session_id, expirationdate, user_id)\n" +
-                    "VALUES ('" + id + "', '" + userID + "');");
+public class SessionDAO extends DAO {
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void createSession(String id, int userID) throws SQLException {
+
+        executeQuery("INSERT INTO session (session_id, expirationdate, user_id)\n" +
+                "VALUES ('" + id + "', '" + userID + "');");
+
     }
-
 }
