@@ -11,7 +11,7 @@
 <body>
   <div id="container">
     <header>
-      <p>Welcome, &lt;&lt;username&gt;&gt;</p>
+      <p>Welcome, {{ name }}</p>
     </header>
 
     <section>
@@ -25,14 +25,31 @@
       <div class="content">
         <div class="data">
           <h1>Mentors</h1>
-
+          <table id="mentors_table"style="width:100%">
+            <tr>
+              <th>Id</th>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Email</th>
+              <th>Phone</th>
+            </tr>
+            {% for mentor in mentors %}
+            <tr>
+              <td>{{ mentor.getID() }}</td>
+              <td>{{ mentor.getNAME() }}</td>
+              <td>{{ mentor.getLAST_NAME() }}</td>
+              <td>{{ mentor.getEMAIL() }}</td>
+              <td>{{ mentor.getPHONE() }}</td>
+            </tr>
+            {% endfor %}
+          </table>
         </div>
       </div>
 
     </section>
 
     <footer>
-      <small>&copy; Copyright 2018 by ToRybyŁyzłe</small>
+      <small>&copy; Copyright 2018</small>
     </footer>
   </div>
 </body>

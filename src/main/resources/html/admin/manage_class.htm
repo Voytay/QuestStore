@@ -11,7 +11,7 @@
 <body>
   <div id="container">
     <header>
-      <p>Welcome, &lt;&lt;username&gt;&gt;</p>
+      <p>Welcome, {{ name }}</p>
     </header>
 
     <section>
@@ -25,14 +25,31 @@
       <div class="content">
         <div class="data">
           <h1>Class managment</h1>
-
+          <table id="classes">
+            <tr>
+              <th>Id</th>
+              <th>Class</th>
+              <th>Description</th>
+              <th>Edit</th>
+            </tr>
+            {% set count = 0 %}
+            {% for class in classes %}
+            {% set count = count + 1 %}
+            <tr>
+              <td>{{ count }}</td>
+              <td>{{ class.getCLASSNAME() }}</td>
+              <td>{{ class.getDESCRIPTION() }}</td>
+              <td><a href="student_info.htm" class="manage_button button">Edit</a></td>
+            </tr>
+            {% endfor %}
+          </table>
         </div>
       </div>
 
     </section>
 
     <footer>
-      <small>&copy; Copyright 2018 by ToRybyŁyzłe</small>
+      <small>&copy; Copyright 2018</small>
     </footer>
   </div>
 </body>
