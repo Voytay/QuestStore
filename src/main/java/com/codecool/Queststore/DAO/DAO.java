@@ -1,31 +1,32 @@
 package com.codecool.Queststore.DAO;
 
+import com.codecool.Queststore.mappers.Mapper;
+import com.codecool.Queststore.model.User;
+import com.codecool.Queststore.queries.Query;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class  DAO {
-    public Connection getConnection() {
-        Connection con = null;
-        try {
-            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/queststore",
-                    "postgres", "123");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-            System.out.println("Opened database successfully");
+public abstract class  DAO<E> {
+    Connection con = ConnectionProvider.getConnection();
+    protected Mapper<E> mapper;
+
+    public List<E> getRecordsList(Query query) throws SQLException {
+        List<E> records = new ArrayList<>();
+        PreparedStatement prepStatement = query.toPreparedStatement();
+        ResultSet rs = prepStatement.getResultSet();
+        while (rs.next()) {
+            E recordToAdd = mapper.map(rs);
+            records.add(recordToAdd);
         }
-        return con;
-    }
-    public ResultSet executeQuery(String query) throws SQLException {
-        Connection con = getConnection();
-        Statement statement = con.createStatement();
-        statement.execute(query);
-        con.close();
-        return statement.getResultSet();
+        return records;
     }
 
-    public void insertQuery(PreparedStatement statement){
+    protected abstract void insertRecord(E record)throws SQLException;
 
-    }
+    protected abstract void deleteRecord(E record) throws SQLException;
+
+    protected abstract void updateRecord(E record) throws SQLException;
 
 }

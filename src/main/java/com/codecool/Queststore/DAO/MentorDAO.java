@@ -1,50 +1,52 @@
 package com.codecool.Queststore.DAO;
 
+import com.codecool.Queststore.mappers.UserMapper;
+import com.codecool.Queststore.model.User;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class MentorDAO extends DAO {
+public class MentorDAO extends DAO<User> {
 
-    public void createMentor(String username, String passwd_hash, String salt, String name,
-                             String last_name, int role, String email, String phone) throws SQLException {
-
-        String insertMentorToPersonQuery = ("\"INSERT INTO person VALUES ('\" + username +\n" +
-                "                \"', '\" + passwd_hash + \"', '\" + salt + \"', '\" + name + \"', '\" +\n" +
-                "                last_name + \"', '\" + role + \"', '\" + email + \"', '\" + phone + \"')\"");
-        String getMentorIdQuery = ("SELECT id_person FROM person WHERE email ='\" + email + \"';");
-        executeQuery(insertMentorToPersonQuery);
-        ResultSet mentorIdSet = executeQuery(getMentorIdQuery);
-        if (mentorIdSet.next()) {
-            String personId = mentorIdSet.getString("id_person");
-            String insertMentorToMentorsQuery = ("INSERT INTO mentor VALUES ('" + personId + "';");
-            executeQuery(insertMentorToMentorsQuery);
-        }
+    MentorDAO(){
+        super.mapper = new UserMapper();
     }
 
-    public List<User> getMentors() throws SQLException {
-        int id;
-        String name;
-        String lastName;
-        String username;
-        String pass;
-        String phone;
-        String email;
-        int role;
-        List<User> mentorList = new ArrayList<User>();
-        ResultSet resultSet = executeQuery("SELECT * FROM person WHERE role = '2';");
+    @Override
+    public void insertRecord(User user) throws SQLException {
+        int personID = getIdPerson(user);
+        PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO mentor VALUES (?)");
+        preparedStatement.setInt(1, personID);
+        preparedStatement.executeQuery();
+    }
+
+    @Override
+    protected void deleteRecord(User user) throws SQLException {
+        PreparedStatement prepStatement = con.prepareStatement("DELETE FROM mentor WHERE email = ?");
+        String email = user.getEmail();
+        prepStatement.setString(1, email);
+        prepStatement.executeQuery();
+    }
+
+    @Override
+    protected void updateRecord(User user) throws SQLException {
+        PreparedStatement prepStatement = con.prepareStatement("UPDATE mentor SET id_person = ?");
+        int personID = getIdPerson(user);
+        prepStatement.setInt(1, personID);
+        prepStatement.executeQuery();
+
+    }
+    public int getIdPerson(User user) throws SQLException {
+        PreparedStatement preparedStatement = con.prepareStatement("SELECT id_person FROM person WHERE email = ?");
+        preparedStatement.setString(1, user.getEmail());
+        ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
-            id = resultSet.getInt("id_person");
-            name= resultSet.getString("name");
-            lastName= resultSet.getString("last_name");
-            username = resultSet.getString("username");
-            pass = resultSet.getString("passwd_hash");
-            phone = resultSet.getString("phone");
-            email = resultSet.getString("email");
-            role = resultSet.getInt("role");
-            User mentor = new User(id,name,lastName,username,pass,phone,email,role);
-            mentorList.add(mentor);
-            }
-            return mentorList;
+            return resultSet.getInt("id_person");
+        }
+        return 0;
     }
+
 }

@@ -1,13 +1,16 @@
 package com.codecool.Queststore.DAO;
 
+import com.codecool.Queststore.model.Session;
+
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginDAO extends DAO {
+public class LoginDAO extends DAO<Session> {
     public boolean verification(String id) throws SQLException {
-
-        ResultSet resultSet = executeQuery("SELECT session_id FROM session WHERE " +
-                    "session_id = '" + id + "';");
+        PreparedStatement prepStatement = con.prepareStatement("SELECT session_id FROM sessions WHERE session_id = ?");
+        prepStatement.setString(1, id);
+        ResultSet resultSet = prepStatement.executeQuery();
             if (resultSet.next()) {
                 if (resultSet.getString("session_id").equals(id)) return true;
 
@@ -15,21 +18,17 @@ public class LoginDAO extends DAO {
         return false;
     }
 
-    public int getRoleBySession(String session_id) throws SQLException {
+    @Override
+    protected void insertRecord(Session record) throws SQLException {
+    }
 
-        ResultSet resultSet = executeQuery("SELECT user_id FROM session WHERE " +
-                    "session_id = '" + session_id + "';"); //                   USER ID
-            if (resultSet.next()) {
-                String userID = resultSet.getString("user_id");
+    @Override
+    protected void deleteRecord(Session record) throws SQLException {
 
-                ResultSet rs = executeQuery("SELECT role FROM person WHERE " +
-                        "id_person = '" + userID + "';");  //               ROLE
-                if (rs.next()) {
-                    return rs.getInt("role");
+    }
 
-                }
-            }
-        System.out.println("No such session or person");
-        return 0;
+    @Override
+    protected void updateRecord(Session record) throws SQLException {
+
     }
 }
