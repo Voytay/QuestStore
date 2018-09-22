@@ -49,6 +49,7 @@ public class PersonDAO extends Connectable {
                     "username = '" + username + "';");
             ResultSet resultSet = statement.getResultSet();
             if (resultSet.next()) {
+                System.out.println(resultSet.getInt("role"));
                 return resultSet.getInt("role");
             }
             con.close();
@@ -56,5 +57,39 @@ public class PersonDAO extends Connectable {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public int getIdByUsername(String username) {
+        Connection con = getConnection();
+        try {
+            Statement statement = con.createStatement();
+            statement.execute("SELECT id_person FROM person WHERE " +
+                    "username = '" + username + "';");
+            ResultSet resultSet = statement.getResultSet();
+            if (resultSet.next()) {
+                return resultSet.getInt("id_person");
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public String getUsernameByID(int userID) {
+        Connection con = getConnection();
+        try {
+            Statement statement = con.createStatement();
+            statement.execute("SELECT username FROM person WHERE " +
+                    "id_person = '" + userID + "';");
+            ResultSet resultSet = statement.getResultSet();
+            if (resultSet.next()) {
+                return resultSet.getString("username");
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

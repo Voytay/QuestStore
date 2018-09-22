@@ -1,6 +1,5 @@
 package com.codecool.Queststore.controllers.server.handlers;
 
-import com.codecool.Queststore.controllers.server.AbstractHandler;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -12,14 +11,14 @@ public class SessionHandler extends AbstractHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         List<String> cookie = httpExchange.getResponseHeaders().get("Cookie");
-        String sessionId = parseCookie(cookie);
+        String sessionId = parseCookies(cookie);
 
         System.out.println(checkSession(sessionId));
         System.out.println(checkRole(sessionId));
     }
 
 
-    public String parseCookie(List<String> cookies) {
+    public String parseCookies(List<String> cookies) {
         String[] pair;
         String value = null;
         for (String s : cookies) {
