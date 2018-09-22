@@ -5,10 +5,12 @@
   <title>QuestStore</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style2.css">
+
+  <link rel="stylesheet" href="../styles/style2.css">
 </head>
 
-<body style="background-image: url('80110.jpg');background-size: cover;">
+<body style="background-image: url('../html/80110.jpg');background-size: cover;">
+
   <div id="container">
     <header>
       <p>Welcome, {{ name }} </p>
@@ -16,10 +18,13 @@
 
     <section>
       <nav>
-        <a class="menu" href="#">Create mentor</a>
-        <a class="menu" href="#">Show mentors</a>
-        <a class="menu" href="#">Edit mentor</a>
-        <a class="menu" href="#">Manage class</a>
+
+        <a class="menu" href="create_mentor.twig">Create mentor</a>
+        <a class="menu" href="show_mentors.twig">Show mentors</a>
+        <a class="menu" href="edit_mentor.twig">Edit mentor</a>
+        <a class="menu" href="manage_class.twig">Manage class</a>
+        <a class="menu" href="index.twig">Log out</a>
+
       </nav>
 
       <article>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <title>QuestStore</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        {% include 'style.css' ignore missing %}
+    </style>
+</head>
+
+
+<body style="background-image: url('80110.jpg');background-size: cover;">
+<div id="container">
+    <header>
+        <p>Welcome to the best quest store in CodeCool. Enjoy your stay and have fun.</p>
+    </header>
+
+    <section>
+
+        <article style="max-width: 300px;">
+            {{username}}
+            <form name="login" method="POST">
+                Username:<br>
+                <input type="text" name="username"><br> Password:
+                <br>
+                <input type="password" name="passwd"><br>
+                <input type="submit" value="Login">
+            </form>
+            <a href="/forgot.htm" class="forgot">Forgotten password?</a>
+        </article>
+
+    </section>
+
+    <footer>
+
+        <small>© Copyright 2018</small>
+    </footer>
+</div>
+
+
+</body>
+
+</html>
