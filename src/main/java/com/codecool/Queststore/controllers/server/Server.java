@@ -1,6 +1,7 @@
 package com.codecool.Queststore.controllers.server;
 
 import com.codecool.Queststore.controllers.server.handlers.SessionHandler;
+import com.codecool.Queststore.controllers.server.handlers.Static;
 import com.sun.net.httpserver.HttpServer;
 
 import java.net.InetSocketAddress;
@@ -11,7 +12,7 @@ public class Server {
         {
             HttpServer server = HttpServer.create(new InetSocketAddress(5777), 0);
             server.createContext("/log", new LoginPageHandler());
-            server.createContext("/", new SessionHandler());
+            server.createContext("/static", new Static());
             server.setExecutor(null);
             server.start();
         } catch (

@@ -1,15 +1,8 @@
 package com.codecool.Queststore.controllers.server.handlers;
 
-import com.codecool.Queststore.DAO.MentorDAO;
 import com.codecool.Queststore.controllers.server.AbstractHandler;
-import com.codecool.Queststore.dao.LoginDAO;
-import com.codecool.Queststore.dao.PersonDAO;
-import com.codecool.Queststore.services.LoginServices;
-import com.codecool.Queststore.services.User;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.jtwig.JtwigModel;
-import org.jtwig.JtwigTemplate;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,35 +11,13 @@ public class SessionHandler extends AbstractHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-        String response = "";
+        List<String> cookie = httpExchange.getResponseHeaders().get("Cookie");
+        String sessionId = parseCookie(cookie);
 
-        List<String> cookies = httpExchange.getRequestHeaders().get("Cookie");
-        boolean isLogged = true;
-        String sessionId;
-//        if (cookies != null) {
-//            sessionId = parseCookie(cookies);
-//            System.out.println(checkSession(sessionId));
-//
-//            if (checkSession(sessionId)) isLogged = true;
-//            if (isLogged) {
-//                response = "You are logged in!";
-//                if (checkRole(sessionId) == 1) {
-//                    response += "</br> You are admin!";
-//                    response += "your sessionId is:";
-//                    response += sessionId;
-//                } else response += "<br> You are not admin!";
-//                AbstractHandler.sendResponse(response, httpExchange);
-//
-//            }
-//        } else {
+        System.out.println(checkSession(sessionId));
+        System.out.println(checkRole(sessionId));
+    }
 
-            JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/index.twig.html");
-            JtwigModel model = JtwigModel.newModel().with("username", "Dupa");
-            response = template.render(model);
-            AbstractHandler.sendRedirectResponse(response, httpExchange);
-
-        }
- //   }
 
     public String parseCookie(List<String> cookies) {
         String[] pair;
@@ -65,17 +36,14 @@ public class SessionHandler extends AbstractHandler implements HttpHandler {
         return value;
     }
 
-    private boolean checkSession(String sessionId) {
+  /*  private boolean checkSession(String sessionId) {
         LoginDAO dao = new LoginDAO();
         if (dao.verification(sessionId)) return true;
         else return false;
     }
+    */
 
-    public int checkRole(String sessionId) {
-        LoginDAO dao = new LoginDAO();
-        return dao.getRoleBySession(sessionId);
 
-    }
 /*
     public boolean createSession(String sessionId){
         LoginDAO dao = new LoginDAO();
