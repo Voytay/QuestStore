@@ -10,7 +10,7 @@ import java.io.IOException;
 public class AdminHandler extends AbstractHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-        if (!isUserLogged(httpExchange) || !isAdminUser(httpExchange)) {
+        if (!checkIsAdmin(httpExchange)) {
             sendRedirectResponse("", httpExchange, "/log");
         }
 

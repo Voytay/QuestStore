@@ -26,12 +26,15 @@ public class LoginPageHandler extends AbstractHandler implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("static/templates/index.twig.html");
         JtwigModel model = JtwigModel.newModel().with("username", "Dupa");
         String response = template.render(model);
+        System.out.println("A TU?");
 
         boolean isLoged = isUserLogged(httpExchange);
+        System.out.println("BEEEEEEEZIN");
+        System.out.println(isLoged);
         List<String> cookies = httpExchange.getRequestHeaders().get("Cookie");
         String path = "";
         if (method.equals("GET")) {
-            if (isLoged) {
+            if (isUserLogged(httpExchange)) {
                 SessionDAO dao = new SessionDAO();
                 PersonDAO pDao = new PersonDAO();
                 String sessionID = parseCookies(cookies);
@@ -71,10 +74,7 @@ public class LoginPageHandler extends AbstractHandler implements HttpHandler {
                 String username = (String) data.get("username");
                 path = setProperPath(username);
                 sendRedirectResponse(response, httpExchange, path);
-            }
-
-            System.out.println("Is loged2?" + isLoged);
-            if (checkData(data) && !isLoged) {
+            } else if (checkData(data)) {
                 PersonDAO dao = new PersonDAO();
                 HttpCookie cookie = createCookie();
 
@@ -95,16 +95,7 @@ public class LoginPageHandler extends AbstractHandler implements HttpHandler {
         }
     }
 
-    private static Map<String, String> parseFormData(String formData) throws UnsupportedEncodingException {
-        Map<String, String> map = new HashMap<>();
-        String[] pairs = formData.split("&");
-        for (String pair : pairs) {
-            String[] keyValue = pair.split("=");
-            String value = new URLDecoder().decode(keyValue[1], "UTF-8");
-            map.put(keyValue[0], value);
-        }
-        return map;
-    }
+
 
 
 }

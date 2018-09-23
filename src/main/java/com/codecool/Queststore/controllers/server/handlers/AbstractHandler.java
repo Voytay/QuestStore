@@ -10,10 +10,13 @@ import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.HttpCookie;
+import java.net.URLDecoder;
 import java.security.MessageDigest;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -115,7 +118,9 @@ int userID = 0;
         Session session = new Session(sessionId, userID);
 
         try {
+            System.out.println("ZAPISZ");
             dao.insertRecord(session);
+            System.out.println("ZAPISANE");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -127,26 +132,48 @@ int userID = 0;
         return dao.verification(sessionId);
     }
 
+//    public String parseCookies(List<String> cookies) {
+//        String[] pair;
+//        String value = null;
+//        for (String s : cookies) {
+//            System.out.println(s);
+//            if (s.matches("Login.*")) {
+//                System.out.println("matched");
+//                System.out.println(s);
+//                pair = s.split("=");
+//                value = pair[1];
+//                value = value.replaceAll("^\"|\"$", "");
+//                return value;
+//            }
+//        }
+//        return value;
+//    }
+
     public String parseCookies(List<String> cookies) {
         String[] pair;
-        String value = null;
+        String value;
         String[] pair2;
         for (String s : cookies) {
-            System.out.println(s);
-            if (s.matches(".*Login.*")) {
-                System.out.println("matched");
-                System.out.println(s);
-                pair = s.split(";");
-                System.out.println(pair[0]+" second: " + pair[1]);
-                value = pair[1];
-                pair2 = value.split("=");
-                value = pair2[1];
-                value = value.replaceAll("^\"|\"$", "");
-                System.out.println("Cookie value: " + value);
-                return value;
+            if (s.matches(".*Login.*") && !s.equals("Login=")) {
+                if (s.contains(";")) {
+                    pair = s.split(";");
+                    value = pair[1];
+                    pair2 = value.split("=");
+                    value = pair2[1];
+                    value = value.replaceAll("^\"|\"$", "");
+                } else {
+                    pair = s.split("=");
+                    value = pair[1];
+                    value = value.replaceAll("^\"|\"$", "");
+                    return value;
+                }
             }
         }
-        return value;
+            return null;
+    }
+
+    public boolean checkIsAdmin(HttpExchange httpExchange) {
+        return  (isUserLogged(httpExchange) && isAdminUser(httpExchange));
     }
 
     public String parseCookie(String cookie) {
@@ -185,15 +212,17 @@ int userID = 0;
         List<String> cookies = httpExchange.getRequestHeaders().get("Cookie");
         String sessionID = "";
         if (cookies != null) {
+            System.out.println("COOKIES NIE NULL");
             sessionID = parseCookies(cookies);
             System.out.println("Session id: " + sessionID);
         }
         boolean toReturn = false;
         try {
-            toReturn = checkSession(sessionID);
+            return checkSession(sessionID);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("DO KOŃCA METODY");
         return toReturn;
 
     }
@@ -237,5 +266,16 @@ int userID = 0;
                 break;
         }
         return path;
+    }
+
+    protected static Map<String, String> parseFormData(String formData) throws UnsupportedEncodingException {
+        Map<String, String> map = new HashMap<>();
+        String[] pairs = formData.split("&");
+        for (String pair : pairs) {
+            String[] keyValue = pair.split("=");
+            String value = new URLDecoder().decode(keyValue[1], "UTF-8");
+            map.put(keyValue[0], value);
+        }
+        return map;
     }
 }

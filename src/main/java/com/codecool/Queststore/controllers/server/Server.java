@@ -1,9 +1,6 @@
 package com.codecool.Queststore.controllers.server;
 
-import com.codecool.Queststore.controllers.server.handlers.AdminHandler;
-import com.codecool.Queststore.controllers.server.handlers.CreateMenHandler;
-import com.codecool.Queststore.controllers.server.handlers.LoginPageHandler;
-import com.codecool.Queststore.controllers.server.handlers.Static;
+import com.codecool.Queststore.controllers.server.handlers.*;
 import com.sun.net.httpserver.HttpServer;
 
 import java.net.InetSocketAddress;
@@ -18,7 +15,7 @@ public class Server {
             server.createContext("/admin", new AdminHandler());
             server.createContext("/create_mentor", new CreateMenHandler());
             server.createContext("/edit_mentor", new AdminHandler());
-            server.createContext("/show_mentors", new AdminHandler());
+            server.createContext("/show_mentors", new ShowMenHandler());
 
             server.setExecutor(null);
             server.start();
