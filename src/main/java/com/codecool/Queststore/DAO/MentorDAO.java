@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class MentorDAO extends DAO<User> {
 
-    MentorDAO(){
+    public MentorDAO(){
         super.mapper = new UserMapper();
     }
 
