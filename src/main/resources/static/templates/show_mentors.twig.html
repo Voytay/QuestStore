@@ -11,7 +11,7 @@
 <body style="background-image: url('static/80110.jpg');background-size: cover;">
   <div id="container">
     <header>
-      <p>Welcome, {{ name }}</p>
+      <p>Welcome, {{ username }}</p>
     </header>
     <section>
       <nav>
@@ -26,7 +26,6 @@
           <h1>Mentors</h1>
           <table id="mentors_table"style="width:100%">
             <tr>
-              <th>Id</th>
               <th>Firstname</th>
               <th>Lastname</th>
               <th>Email</th>
@@ -34,11 +33,10 @@
             </tr>
             {% for mentor in mentors %}
             <tr>
-              <td>{{ mentor.getID() }}</td>
-              <td>{{ mentor.getNAME() }}</td>
-              <td>{{ mentor.getLAST_NAME() }}</td>
-              <td>{{ mentor.getEMAIL() }}</td>
-              <td>{{ mentor.getPHONE() }}</td>
+              <td>{{ mentor.getName() }}</td>
+              <td>{{ mentor.getLastname() }}</td>
+              <td>{{ mentor.getEmail() }}</td>
+              <td>{{ mentor.getPhone() }}</td>
             </tr>
             {% endfor %}
           </table>
