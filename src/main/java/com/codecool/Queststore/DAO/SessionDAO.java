@@ -13,10 +13,12 @@ public class SessionDAO extends DAO<Session> {
     @Override
     public void insertRecord(Session session) throws SQLException {
             PreparedStatement prepStatement = con.prepareStatement("INSERT INTO sessions(session_id,expirationdate,user_id) VALUES (?, ?, ?)");
+        System.out.println("INSERTS ))))))))))))))))))))))))))))))))))))))))))))))))");
             prepStatement.setString(1,session.getSessionID());
             prepStatement.setString(2,localDateTimeToString(session.getExpirationDate()));
             prepStatement.setInt(3,session.getUserID());
             prepStatement.executeUpdate();
+        System.out.println("EXECUTED *********************************");
         }
 
 

@@ -18,9 +18,9 @@ public class MentorDAO extends DAO<User> {
     @Override
     public void insertRecord(User user) throws SQLException {
         int personID = getIdPerson(user);
-        PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO mentor VALUES (?)");
+        PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO mentor (id_person) VALUES (?)");
         preparedStatement.setInt(1, personID);
-        preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -40,10 +40,10 @@ public class MentorDAO extends DAO<User> {
 
     }
     public int getIdPerson(User user) throws SQLException {
-        PreparedStatement preparedStatement = con.prepareStatement("SELECT id_person FROM person WHERE email = ?");
+        PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM person WHERE email = ? ");
         preparedStatement.setString(1, user.getEmail());
         ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
+        while (resultSet.next()) {
             return resultSet.getInt("id_person");
         }
         return 0;

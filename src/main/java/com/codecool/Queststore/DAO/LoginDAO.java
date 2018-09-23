@@ -8,10 +8,10 @@ import java.sql.SQLException;
 
 public class LoginDAO extends DAO<Session> {
     public boolean verification(String id) throws SQLException {
-        PreparedStatement prepStatement = con.prepareStatement("SELECT session_id FROM sessions WHERE session_id = ?");
+        PreparedStatement prepStatement = con.prepareStatement("SELECT * FROM sessions WHERE session_id = ?");
         prepStatement.setString(1, id);
         ResultSet resultSet = prepStatement.executeQuery();
-            if (resultSet.next()) {
+        if (resultSet.next()) {
                 if (resultSet.getString("session_id").equals(id)) return true;
             }
         return false;

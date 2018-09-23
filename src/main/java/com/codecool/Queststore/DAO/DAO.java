@@ -14,8 +14,11 @@ public abstract class  DAO<E> {
     public List<E> getRecordsList(Query query) throws SQLException {
         List<E> records = new ArrayList<>();
         PreparedStatement prepStatement = query.toPreparedStatement();
+        prepStatement.executeQuery();
         ResultSet rs = prepStatement.getResultSet();
+        System.out.println(rs);
         while (rs.next()) {
+
             E recordToAdd = mapper.map(rs);
             records.add(recordToAdd);
         }
