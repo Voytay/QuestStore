@@ -16,7 +16,7 @@ public class SessionDAO extends DAO<Session> {
             prepStatement.setString(1,session.getSessionID());
             prepStatement.setString(2,localDateTimeToString(session.getExpirationDate()));
             prepStatement.setInt(3,session.getUserID());
-            prepStatement.executeQuery();
+            prepStatement.executeUpdate();
         }
 
 
@@ -24,7 +24,7 @@ public class SessionDAO extends DAO<Session> {
     public void deleteRecord(Session session) throws SQLException {
         PreparedStatement prepStatement = con.prepareStatement("DELETE FROM sessions WHERE session_id = ?");
         prepStatement.setString(1,session.getSessionID());
-        prepStatement.executeQuery();
+        prepStatement.executeUpdate();
     }
 
     @Override
@@ -34,7 +34,7 @@ public class SessionDAO extends DAO<Session> {
         prepStatement.setString(2,localDateTimeToString(session.getExpirationDate()));
         prepStatement.setInt(3,session.getUserID());
         prepStatement.setInt(4,session.getUserID());
-        prepStatement.executeQuery();
+        prepStatement.executeUpdate();
     }
 
     protected LocalDateTime stringToLocalDateTime(String str){
