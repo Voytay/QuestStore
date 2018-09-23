@@ -37,6 +37,7 @@ nav {
 
 .content {
     flex: 80%;
+    background-color: rgba(241,241,241,.65);
 }
 
 nav a{
@@ -151,7 +152,7 @@ footer {
     }
 }
 
-#active{
+.active{
   display: block;
   background-color: rgba(241,241,241,.35);
   border: 1px solid;

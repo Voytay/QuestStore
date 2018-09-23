@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="static/css/style3.css">
 </head>
-
 <body style="background-image: url('static/80110.jpg');background-size: cover;">
   <div id="container">
     <header>
@@ -16,17 +15,15 @@
 
     <section>
       <nav>
-        <a class="menu" href="/create_mentor">Create mentor</a>
+        <a class="menu active" href="/create_mentor">Create mentor</a>
         <a class="menu" href="/show_mentors">Show mentors</a>
-        <a class="menu active" href="/edit_mentor">Edit mentor</a>
+        <a class="menu" href="/edit_mentor">Edit mentor</a>
         <a class="menu" href="/manage_class">Manage class</a>
         <a class="menu" href="/log_out">Log out</a>
       </nav>
-      <!--Checking checkbox define if user want to edit field
-    Default fields are loaded from back-end -->
       <div class="content">
         <div class="data">
-          <h1>Edit mentor</h1>
+          <h1>Creating mentor</h1>
           <form name="create_mentor" method="POST">
             <div class="row">
               <div class="col-25">
@@ -34,7 +31,14 @@
               </div>
               <div class="col-75">
                 <input type="text" id="username" name="username" placeholder="Enter username">
-                <input type="checkbox" name="username_edit">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="password">Password</label>
+              </div>
+              <div class="col-75">
+                <input type="text" id="password" name="password" placeholder="Enter default password">
               </div>
             </div>
             <div class="row">
@@ -43,7 +47,6 @@
               </div>
               <div class="col-75">
                 <input type="text" id="first_name" name="fname" placeholder="Enter first name">
-                <input type="checkbox" name="fname_edit">
               </div>
             </div>
             <div class="row">
@@ -52,7 +55,6 @@
               </div>
               <div class="col-75">
                 <input type="text" id="last_name" name="lname" placeholder="Enter last name">
-                <input type="checkbox" name="lname_edit">
               </div>
             </div>
             <div class="row">
@@ -61,7 +63,6 @@
               </div>
               <div class="col-75">
                 <input type="email" id="email" name="email" placeholder="Enter email">
-                <input type="checkbox" name="email_edit">
               </div>
             </div>
             <div class="row">
@@ -70,14 +71,14 @@
               </div>
               <div class="col-75">
                 <input type="text" id="phone_number" name="phone" placeholder="Enter phone number">
-                <input type="checkbox" name="phone_edit">
               </div>
             </div>
 
-            <input type="submit" value="Save" onclick="editMentor()"><br>
+            <input type="submit" value="Create mentor" onclick="createMentor()"><br>
+            <p></p><p></p>
             <script>
-              function editMentor() {
-                window.alert('Mentor edited!');
+              function createMentor() {
+               window.alert('New mentor created!');
               }
             </script>
           </form>
@@ -87,7 +88,7 @@
     </section>
 
     <footer>
-      <small>&copy; Copyright 2018 by ToRybyŁyzłe</small>
+      <small>&copy; Copyright 2018 <small>by ToRybyŁyzłe</small></small>
     </footer>
   </div>
 </body>
