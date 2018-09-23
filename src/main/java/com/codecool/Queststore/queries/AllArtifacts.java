@@ -8,7 +8,6 @@ public class AllArtifacts extends Query {
 
     public PreparedStatement toPreparedStatement() throws SQLException {
         PreparedStatement preparedStatement = con.prepareStatement(QUERY);
-        con.close();
         return preparedStatement;
     }
 }

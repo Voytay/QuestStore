@@ -10,7 +10,6 @@ public class PersonQuery extends Query {
     }
     public PreparedStatement toPreparedStatement() throws SQLException {
         PreparedStatement preparedStatement = con.prepareStatement(query);
-        con.close();
         return preparedStatement;
     }
 }
