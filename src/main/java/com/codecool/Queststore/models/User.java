@@ -31,7 +31,7 @@ public class User {
     }
 
     public String getPasswdhash() {
-        return passwdhash;
+        return this.passwdhash;
     }
 
     public void setPasswdhash(String passwd_hash) {
