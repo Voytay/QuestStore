@@ -1,9 +1,11 @@
 package com.codecool.Queststore.controllers.server.handlers;
 
 
-import com.codecool.Queststore.dao.LoginDAO;
-import com.codecool.Queststore.dao.PersonDAO;
-import com.codecool.Queststore.dao.SessionDAO;
+import com.codecool.Queststore.DAO.LoginDAO;
+import com.codecool.Queststore.DAO.PersonDAO;
+import com.codecool.Queststore.DAO.SessionDAO;
+import com.codecool.Queststore.models.Session;
+import com.codecool.Queststore.models.User;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
@@ -11,6 +13,7 @@ import java.io.OutputStream;
 import java.math.BigInteger;
 import java.net.HttpCookie;
 import java.security.MessageDigest;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -51,8 +54,14 @@ public abstract class AbstractHandler {
         System.out.println("--------START OF CHECKDATA --------");
         String password = data.get("passwd");
         System.out.println("password: " + password);
-        String salt = dao.getSalt(username);
-        String passwordHash = dao.getPasswordHash(username);
+        User user = null;
+        try {
+            user = dao.getPersonByLogin(username);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String salt = user.getSalt();
+        String passwordHash = user.getPasswdhash();
         String hashed = "";
 
         String toCheck = password + salt;
@@ -89,7 +98,7 @@ public abstract class AbstractHandler {
         return new HttpCookie("Login", hashed);
     }
 
-    public boolean checkCookie(String sessionId) {
+    public boolean checkCookie(String sessionId) throws SQLException {
         SessionDAO dao = new SessionDAO();
         return dao.checkSession(sessionId);
     }
@@ -97,11 +106,23 @@ public abstract class AbstractHandler {
     public boolean createSession(String sessionId, String username) {
         SessionDAO dao = new SessionDAO();
         PersonDAO personDAO = new PersonDAO();
-        int userID = personDAO.getIdByUsername(username);
-        return dao.createSession(sessionId, userID);
+int userID = 0;
+        try {
+            userID = personDAO.getPersonIDByLogin(username);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Session session = new Session(sessionId, userID);
+
+        try {
+            dao.insertRecord(session);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
-    public boolean checkSession(String sessionId) {
+    public boolean checkSession(String sessionId) throws SQLException {
         LoginDAO dao = new LoginDAO();
         return dao.verification(sessionId);
     }
@@ -109,14 +130,19 @@ public abstract class AbstractHandler {
     public String parseCookies(List<String> cookies) {
         String[] pair;
         String value = null;
+        String[] pair2;
         for (String s : cookies) {
             System.out.println(s);
-            if (s.matches("Login.*")) {
+            if (s.matches(".*Login.*")) {
                 System.out.println("matched");
                 System.out.println(s);
-                pair = s.split("=");
+                pair = s.split(";");
+                System.out.println(pair[0]+" second: " + pair[1]);
                 value = pair[1];
+                pair2 = value.split("=");
+                value = pair2[1];
                 value = value.replaceAll("^\"|\"$", "");
+                System.out.println("Cookie value: " + value);
                 return value;
             }
         }
@@ -137,8 +163,21 @@ public abstract class AbstractHandler {
     }
 
     public int checkRole(String sessionId) {
-        LoginDAO dao = new LoginDAO();
-        return dao.getRoleBySession(sessionId);
+        SessionDAO dao = new SessionDAO();
+        User user = null;
+        String username="";
+        try {
+            username = dao.getUserNamebySession(sessionId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        PersonDAO personDAO = new PersonDAO();
+        try {
+            user = personDAO.getPersonByLogin(username);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user.getRole();
 
     }
 
@@ -147,9 +186,15 @@ public abstract class AbstractHandler {
         String sessionID = "";
         if (cookies != null) {
             sessionID = parseCookies(cookies);
+            System.out.println("Session id: " + sessionID);
         }
-        System.out.println("Chujstwo: " + checkSession(sessionID));
-        return checkSession(sessionID);
+        boolean toReturn = false;
+        try {
+            toReturn = checkSession(sessionID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return toReturn;
 
     }
 
@@ -160,14 +205,19 @@ public abstract class AbstractHandler {
             sessionID = parseCookies(cookies);
         }
         SessionDAO dao = new SessionDAO();
-        System.out.println(dao.getRoleBySession(sessionID));
-        return dao.getRoleBySession(sessionID) == 1;
+        return checkRole(sessionID) == 1;
     }
 
     public String setProperPath(String username) {
         PersonDAO dao = new PersonDAO();
-        int role = dao.getRoleByUsername(username);
+        User user = null;
+        try {
+           user = dao.getPersonByLogin(username);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         String path = "0";
+        int role = user.getRole();
 
         switch (role) {
             case 1:

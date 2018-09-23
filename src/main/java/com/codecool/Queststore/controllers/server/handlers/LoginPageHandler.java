@@ -1,7 +1,8 @@
 package com.codecool.Queststore.controllers.server.handlers;
 
-import com.codecool.Queststore.dao.PersonDAO;
-import com.codecool.Queststore.dao.SessionDAO;
+import com.codecool.Queststore.DAO.PersonDAO;
+import com.codecool.Queststore.DAO.SessionDAO;
+import com.codecool.Queststore.models.User;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -13,6 +14,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpCookie;
 import java.net.URLDecoder;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,9 +35,21 @@ public class LoginPageHandler extends AbstractHandler implements HttpHandler {
                 SessionDAO dao = new SessionDAO();
                 PersonDAO pDao = new PersonDAO();
                 String sessionID = parseCookies(cookies);
-                int userId = dao.getUserIdBySession(sessionID);
 
-                path = setProperPath(pDao.getUsernameByID(userId));
+                String username = null;
+                try {
+                    username = dao.getUserNamebySession(sessionID);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                int userId = 0;
+                try {
+                    userId = pDao.getPersonIDByLogin(username);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                path = setProperPath(username);
                 sendRedirectResponse(response, httpExchange, path);
 
             } else {

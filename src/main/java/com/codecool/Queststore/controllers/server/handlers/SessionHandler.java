@@ -13,7 +13,6 @@ public class SessionHandler extends AbstractHandler implements HttpHandler {
         List<String> cookie = httpExchange.getResponseHeaders().get("Cookie");
         String sessionId = parseCookies(cookie);
 
-        System.out.println(checkSession(sessionId));
         System.out.println(checkRole(sessionId));
     }
 

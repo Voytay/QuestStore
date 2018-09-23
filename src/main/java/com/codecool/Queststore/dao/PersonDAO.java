@@ -1,95 +1,75 @@
-package com.codecool.Queststore.dao;
-
-import java.sql.Connection;
+package com.codecool.Queststore.DAO;
+import com.codecool.Queststore.models.User;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class PersonDAO extends Connectable {
+public class PersonDAO extends DAO<User> {
 
-    public String getSalt(String username) {
-        Connection con = getConnection();
-        try {
-            Statement statement = con.createStatement();
-            statement.execute("SELECT salt FROM person WHERE " +
-                    "username = '" + username + "';");
-            ResultSet resultSet = statement.getResultSet();
-            if (resultSet.next()) {
-                return resultSet.getString("salt");
-            }
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    @Override
+    public void insertRecord(User user) throws SQLException {
+
+        PreparedStatement prepStatement = con.prepareStatement("INSERT INTO person VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        prepStatement.setString(1, user.getUsername());
+        prepStatement.setString(2, user.getPasswdhash());
+        prepStatement.setString(3, user.getSalt());
+        prepStatement.setString(4, user.getName());
+        prepStatement.setString(5, user.getLastname());
+        prepStatement.setInt(7, user.getRole());
+        prepStatement.setString(8, user.getEmail());
+        prepStatement.setString(9, user.getPhone());
+        prepStatement.executeQuery();
+    }
+
+    @Override
+    public void deleteRecord(User user) throws SQLException {
+        PreparedStatement prepStatement = con.prepareStatement("DELETE FROM person WHERE email = ?");
+        prepStatement.setString(1, user.getEmail());
+        prepStatement.executeQuery();
+    }
+
+    @Override
+    public void updateRecord(User user) throws SQLException {
+        PreparedStatement prepStatement = con.prepareStatement("UPDATE person SET username = ?, passwd_hash =  ?," +
+                " salt = ?, name = ?, last_name = ?, role = ?, email =  ?, phone =  ?)");
+        prepStatement.setString(1, user.getUsername());
+        prepStatement.setString(2, user.getPasswdhash());
+        prepStatement.setString(3, user.getSalt());
+        prepStatement.setString(4, user.getName());
+        prepStatement.setString(5, user.getLastname());
+        prepStatement.setInt(7, user.getRole());
+        prepStatement.setString(8, user.getEmail());
+        prepStatement.setString(9, user.getPhone());
+        prepStatement.executeQuery();
+    }
+
+    public User getPersonByLogin(String login) throws SQLException {
+        PreparedStatement prepStatement = con.prepareStatement("SELECT * FROM person WHERE username = ? ");
+        prepStatement.setString(1, login);
+        ResultSet resultSet = prepStatement.executeQuery();
+        if (resultSet.next()) {
+            String username = resultSet.getString("username");
+            String passwdHash = resultSet.getString("passwd_hash");
+            String salt = resultSet.getString("salt");
+            String name = resultSet.getString("name");
+            String lastName = resultSet.getString("last_name");
+            int role = resultSet.getInt("role");
+            String email = resultSet.getString("email");
+            String phone = resultSet.getString("phone");
+            User user = new User(username, passwdHash, salt, name, lastName, role, email, phone);
+            return user;
         }
         return null;
     }
 
-    public String getPasswordHash(String username) {
-        Connection con = getConnection();
-        try {
-            Statement statement = con.createStatement();
-            statement.execute("SELECT passwd_hash FROM person WHERE " +
-                    "username = '" + username + "';");
-            ResultSet resultSet = statement.getResultSet();
-            if (resultSet.next()) {
-                return resultSet.getString("passwd_hash");
-            }
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public int getRoleByUsername(String username) {
-        Connection con = getConnection();
-        try {
-            Statement statement = con.createStatement();
-            statement.execute("SELECT role FROM person WHERE " +
-                    "username = '" + username + "';");
-            ResultSet resultSet = statement.getResultSet();
-            if (resultSet.next()) {
-                System.out.println(resultSet.getInt("role"));
-                return resultSet.getInt("role");
-            }
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public int getPersonIDByLogin(String login) throws SQLException {
+        PreparedStatement prepStatement = con.prepareStatement("SELECT * FROM person WHERE username = ? ");
+        prepStatement.setString(1, login);
+        ResultSet resultSet = prepStatement.executeQuery();
+        if (resultSet.next()) {
+            int ID = resultSet.getInt("id_person");
+            return ID;
         }
         return 0;
-    }
-
-    public int getIdByUsername(String username) {
-        Connection con = getConnection();
-        try {
-            Statement statement = con.createStatement();
-            statement.execute("SELECT id_person FROM person WHERE " +
-                    "username = '" + username + "';");
-            ResultSet resultSet = statement.getResultSet();
-            if (resultSet.next()) {
-                return resultSet.getInt("id_person");
-            }
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
-    public String getUsernameByID(int userID) {
-        Connection con = getConnection();
-        try {
-            Statement statement = con.createStatement();
-            statement.execute("SELECT username FROM person WHERE " +
-                    "id_person = '" + userID + "';");
-            ResultSet resultSet = statement.getResultSet();
-            if (resultSet.next()) {
-                return resultSet.getString("username");
-            }
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

@@ -1,61 +1,88 @@
-package com.codecool.Queststore.dao;
+package com.codecool.Queststore.DAO;
 
-import java.sql.Connection;
+import com.codecool.Queststore.models.Session;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public class SessionDAO extends Connectable {
 
-    public boolean createSession(String id, int userID) {
-        Connection con = getConnection();
-        try {
-            Statement statement = con.createStatement();
-            statement.execute("INSERT INTO session (session_id, user_id) VALUES ('" + id + "', '" + userID + "');");
-        return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
+public class SessionDAO extends DAO<Session> {
+
+    @Override
+    public void insertRecord(Session session) throws SQLException {
+            PreparedStatement prepStatement = con.prepareStatement("INSERT INTO sessions(session_id,expirationdate,user_id) VALUES (?, ?, ?)");
+            prepStatement.setString(1,session.getSessionID());
+            prepStatement.setString(2,localDateTimeToString(session.getExpirationDate()));
+            prepStatement.setInt(3,session.getUserID());
+            prepStatement.executeQuery();
+        }
+
+
+    @Override
+    public void deleteRecord(Session session) throws SQLException {
+        PreparedStatement prepStatement = con.prepareStatement("DELETE FROM sessions WHERE session_id = ?");
+        prepStatement.setString(1,session.getSessionID());
+        prepStatement.executeQuery();
+    }
+
+    @Override
+    public void updateRecord(Session session) throws SQLException {
+        PreparedStatement prepStatement = con.prepareStatement("UPDATE sessions SET session_id = ? , expirationdate = ?,user_id = ? WHERE user_id = ?");
+        prepStatement.setString(1,session.getSessionID());
+        prepStatement.setString(2,localDateTimeToString(session.getExpirationDate()));
+        prepStatement.setInt(3,session.getUserID());
+        prepStatement.setInt(4,session.getUserID());
+        prepStatement.executeQuery();
+    }
+
+    protected LocalDateTime stringToLocalDateTime(String str){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return LocalDateTime.parse(str, formatter);
+
+    }
+
+    public String localDateTimeToString(LocalDateTime localDT){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return localDT.format(formatter);
+    }
+
+    public boolean checkSession(int sessionId, String username) throws SQLException {
+        PreparedStatement prepStatement = con.prepareStatement("SELECT * FROM sessions WHERE session_id = ? AND username = ?");
+        prepStatement.setInt(1, sessionId);
+        prepStatement.setString(2, username);
+        ResultSet resultSet = prepStatement.executeQuery();
+        if (resultSet.next()) {
+            return true;
         }
         return false;
     }
 
-    public boolean checkSession(String sessionId) {
-        Connection con = getConnection();
-        try {
-            Statement statement = con.createStatement();
-            statement.execute("SELECT * FROM session WHERE session_id = '" + sessionId + "';");
-            ResultSet rs = statement.getResultSet();
-            if (rs.next()) return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public boolean checkSession(String sessionId) throws SQLException {
+        PreparedStatement prepStatement = con.prepareStatement("SELECT * FROM sessions WHERE session_id = ? AND username = ?");
+        prepStatement.setString(1, sessionId);
+        ResultSet resultSet = prepStatement.executeQuery();
+        if (resultSet.next()) {
+            return true;
         }
         return false;
     }
 
-    public int getRoleBySession(String sessionId) {
-        Connection con = getConnection();
-        try {
-            Statement statement = con.createStatement();
-            statement.execute("SELECT user_id FROM session WHERE session_id = '" + sessionId + "';");
-            ResultSet rs = statement.getResultSet();
-            if(rs.next()) return rs.getInt("user_id");
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public String getUserNamebySession(String sessionId) throws SQLException {
+        int userID = 0;
+        PreparedStatement prepStatement = con.prepareStatement("SELECT user_id FROM sessions WHERE session_id = ?");
+        prepStatement.setString(1, sessionId);
+        ResultSet resultSet = prepStatement.executeQuery();
+        if (resultSet.next()) {
+            userID = resultSet.getInt("user_id");
         }
-        return 0;
-    }
-
-    public int getUserIdBySession(String sessionId){
-        Connection con = getConnection();
-        try {
-            Statement statement = con.createStatement();
-            statement.execute("SELECT user_id FROM session WHERE session_id = '" + sessionId + "';");
-            ResultSet rs = statement.getResultSet();
-            if(rs.next()) return rs.getInt("user_id");
-        } catch (SQLException e) {
-            e.printStackTrace();
+        prepStatement = con.prepareStatement("SELECT username FROM person WHERE id_person = ?");
+        prepStatement.setInt(1,userID);
+        resultSet = prepStatement.executeQuery();
+        if(resultSet.next()){
+            return resultSet.getString("username");
         }
-        return 0;
+        else return null;
+        }
     }
-
-}
